@@ -2,13 +2,14 @@
 O projeto consiste em um jogo em texto no qual um jogador explora uma caverna em busca de um tesouro escondido.
 Durante a exploração, eventos inesperados podem ocorrer, afetando o estado do jogador.
 O jogo continua até que o tesouro seja encontrado ou o jogador morra.
+
+Nova atualização: Ao encontrar um bau, os itens serão inseridos no inventario, sendo possivel utiliza-los, mas ao utilizar um item, o jogador não irá prosseguir no mapa.
 """
 
 import logging
 import mecanicas as mec
 
 logging.basicConfig(level=logging.ERROR, format=" %(asctimes)s - %(levelname)s - %(message)s - linha %(lineno)d")
-logging.debug("Inicio do programa")
 
 vida = 100
 mana = 100
@@ -25,7 +26,7 @@ eventos_caverna = {
    "Morcego":15,"Sapo venenoso ":30,"Nada":0,"Susto":10,"bau":1
    }
 
-inventario = []
+inventario = {}
 
 while True:
     start = input(
@@ -45,22 +46,30 @@ try:
 
        if passos != 0:
         continuar_jogada = input("Deseja rolar o dado? Ou Usar items no inventário?: INICIO(s)/INVENTARIO(i): ")
+
         if continuar_jogada == "s" or "S":
             mana, passos = mec.andar(mana, passos)
         else:
-                print(
-                f"Inventário: {inventario}"
-                )
+
+            for i, chave, valor in inventario,items():
+             print(f"Escolher item{chave} selecione o número{i}")
 
         vida, procura_tesouro = mec.procurarTesouro(vida, eventos_caverna)
 
         if procura_tesouro == True:
 
-            items, tesouro = mec.abrirBau(bau)
-            items_inventario = inventario.append(items)
+            items, item, tesouro = mec.abrirBau(bau)
+
+            checa_item = inventario.get(items)
+
+            if checa_item == None:
+                inventario[items] = items
+            else:
+                valor = valor + 1
+                inventario.update({items: valor})
 
         else:
-            mec.checkLife(vida)
+         mec.checkLife(vida)
 
         checar_status = input("Deseja checar status do seu personagem: S/N ")
         if checar_status == 'S' or 's':
@@ -70,4 +79,4 @@ try:
         
 
 except:
-    logging.debug("Ocorreu um erro")
+    logging.ERROR("Ocorreu um erro")
