@@ -7,7 +7,7 @@ Nova atualização: Ao encontrar um bau, os itens serão inseridos no inventario
 """
 
 import logging
-import mecanicas as mec
+import modulos as mec
 
 logging.basicConfig(level=logging.ERROR, format=" %(asctimes)s - %(levelname)s - %(message)s - linha %(lineno)d")
 

@@ -1,22 +1,5 @@
 import time
 import random
-import sys
-
-
-def andar(mana, passos):
-
-    if mana != 0:
-        andando = random.randint(0,6)
-        mana = mana - andando
-        passos = passos + andando
-
-        print(f"Andando {andando} casas")
- 
-    else:
-       print("Você não possui mana suficiente")
-
-    return mana, passos
-
 
 def procurarTesouro(vida_char, eventos_caverna):
 
@@ -68,22 +51,3 @@ def abrirBau(bau):
         break
      
     return chave, valor, tesouro
-
-def checkLife(vida):
-
-    if vida == 0:
-       print("Você morreu!")
-       sys.exit()
-    else:
-       print(f"Estado atual:\n vida:{vida}")
-
-def estadoPlayer(life, stealth):
-   
-   global vida
-   global mana
-
-   vida = life
-   mana = stealth
-
-
-    
