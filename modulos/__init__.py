@@ -1,3 +1,4 @@
-from .andar import *
+from .baus import *
 from .eventos import *
-from .saude import *
+from .personagem import *
+

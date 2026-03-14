@@ -11,72 +11,31 @@ import modulos as mec
 
 logging.basicConfig(level=logging.ERROR, format=" %(asctimes)s - %(levelname)s - %(message)s - linha %(lineno)d")
 
-vida = 100
-mana = 100
 tamanho_caverna = 150
-passos = 0
-cont = 0
+
+#Iniciar game
+start = input("INICIAR O GAME: SIM / NAO: ")
+start = start.upper()
 
 
-bau = {
-   "pocao_Mana":10,"pocao_Vida":15,"pocaoManaMax":100,"pocaoVidaMax":100,"tesouro":1
-   }
+if start == "SIM":
+    nome = input("Digite o nome do seu personagem: ")
+    personagem = mec.Personagem(nome)
+    bau = mec.bau()
+    print(personagem)
+    print(f"Regras de mana:\nPara recuparar mana é necessário descansar o turno.\nPara cada turno, você perde 10 de vida para 10 de mana ou obter uma poção de mana.\n")
 
-eventos_caverna = {
-   "Morcego":15,"Sapo venenoso ":30,"Nada":0,"Susto":10,"bau":1
-   }
-
-inventario = {}
-
-while True:
-    start = input(
-       "Bem vindo a busca ao tesouro, deseja iniciar? S/N "
-       )
-    
-    if start == 'S' or 's':
-        break
-    else:
-        print("Selecione a opção válida")
 
 try:
     while True:
-
-       if passos == 0:
-        mana, passos = mec.andar(mana, passos)
-
-       if passos != 0:
-        continuar_jogada = input("Deseja rolar o dado? Ou Usar items no inventário?: INICIO(s)/INVENTARIO(i): ")
-
-        if continuar_jogada == "s" or "S":
-            mana, passos = mec.andar(mana, passos)
+        acao = input("Para andar digite(s), para descansar digite (d): ")
+        acao = acao.upper()
+        if acao == "S":
+            passos = personagem.andar()
+        if passos > 0:
+            print("Você não avançou")
+            continue
         else:
-
-            for i, chave, valor in inventario,items():
-             print(f"Escolher item{chave} selecione o número{i}")
-
-        vida, procura_tesouro = mec.procurarTesouro(vida, eventos_caverna)
-
-        if procura_tesouro == True:
-
-            items, item, tesouro = mec.abrirBau(bau)
-
-            checa_item = inventario.get(items)
-
-            if checa_item == None:
-                inventario[items] = items
-            else:
-                valor = valor + 1
-                inventario.update({items: valor})
-
-        else:
-         mec.checkLife(vida)
-
-        checar_status = input("Deseja checar status do seu personagem: S/N ")
-        if checar_status == 'S' or 's':
-            print(
-            f"Vida: {vida}\nMana: {mana}\nInventário: {inventario}"
-            )
-        
-
+            bau.procurarTesouro()
 except:
     logging.ERROR("Ocorreu um erro")
