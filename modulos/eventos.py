@@ -36,18 +36,12 @@ def eventoAleatorio(vida_char, eventos_caverna):
 
 
 def abrirBau(bau):
-
     item = random.randint(0,4)
-
     for i, (chave, valor) in enumerate(bau.items()):
-     
      if i == item:
-
         if chave == "tesouro":
            tesouro = True
         else:
            tesouro = False
-
         break
-     
     return chave, valor, tesouro
