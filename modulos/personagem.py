@@ -19,7 +19,6 @@ class Personagem:
             self.mana = self.mana - andando
             self.passos = self.passos + andando
             print(f"Andando {andando} casas")
-    
         else:
             print("Você não possui mana suficiente")
         return self.passos
@@ -27,9 +26,10 @@ class Personagem:
 #INVENTARIO
     def inventario(self, item, valor):
         self.myinventario[item] = valor
-        print("Itens no inventario: ")
-        for c in self.myinventario:
-            print(f"Item {c}")
+        print(self.myinventario)
+        print(f"Itens no inventario: {item}")
+        for chave, valor in self.myinventario.items():
+            print(f"Item: {chave}")
 
 #ACESSAR E RECUPERAR STATUS
 
@@ -42,6 +42,9 @@ class Personagem:
         if self.vida <= 0:
             print("Você está morto")
             sys.exit()
+        elif self.mana <= 0:
+            print("Mana insuficiaente")
+            self.descansar = input("Deseja descansar para recuperar mana? ")
         else:
             return self.mana, self.vida
 

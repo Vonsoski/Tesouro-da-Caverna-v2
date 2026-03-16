@@ -11,12 +11,9 @@ import modulos as mec
 
 logging.basicConfig(level=logging.ERROR, format=" %(asctimes)s - %(levelname)s - %(message)s - linha %(lineno)d")
 
-
-
 #Iniciar game
 start = input("INICIAR O GAME: SIM / NAO: ")
 start = start.upper()
-
 
 if start == "SIM":
     nome = input("Digite o nome do seu personagem: ")
@@ -26,7 +23,6 @@ if start == "SIM":
     print(personagem)
     print(f"Regras de mana:\nPara recuparar mana é necessário descansar o turno.\nPara cada turno, você perde 10 de vida para 10 de mana ou obter uma poção de mana.\n")
 
-
 try:
     while True:
         acao = input("Para andar digite(s), para descansar digite (d): ")
@@ -34,11 +30,9 @@ try:
 
         if acao == "S":
             passos = personagem.andar()
-
         if passos < 1:
             print("Você não avançou")
             continue
-
         else:
             evento, dano = bau.procurarTesouro()
             if dano > 1:
@@ -51,5 +45,6 @@ try:
                 else:
                     personagem.inventario(item, valor)
                     bau.removerItem(item)
+        personagem.estadoPlayer()
 except:
     logging.ERROR("Ocorreu um erro")
